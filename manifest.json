@@ -5,6 +5,10 @@
   "main": "code.js",
   "ui": "ui.html",
   "menu": [
+    {"name": "Butt Selection Up", "command": "bup"},
+    {"name": "Butt Selection Down", "command": "bdown"},
+    {"name": "Butt Selection Left", "command": "bleft"},
+    {"name": "Butt Selection Right", "command": "bright"},
     {"name": "Space Selection Up", "command": "up"},
     {"name": "Space Selection Down", "command": "down"},
     {"name": "Space Selection Left", "command": "left"},
