@@ -1,0 +1,13 @@
+{
+  "name": "Butter",
+  "id": "788302071954922948",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "menu": [
+    {"name": "Space Selection Up", "command": "up"},
+    {"name": "Space Selection Down", "command": "down"},
+    {"name": "Space Selection Left", "command": "left"},
+    {"name": "Space Selection Right", "command": "right"}
+  ]
+}
