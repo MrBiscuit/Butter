@@ -5,6 +5,7 @@ function absoluteY(layer) {
     return layer.absoluteTransform[1][2];
 }
 let selection = figma.currentPage.selection;
+let root = figma.root;
 if (selection.length == 0) {
     figma.closePlugin('No object selected.');
 }
@@ -14,22 +15,22 @@ if (selection.length < 2) {
 switch (figma.command) {
     case "up": {
         figma.showUI(__html__, { width: 240, height: 128 });
-        figma.ui.postMessage("Spacing Up:");
+        figma.ui.postMessage("Spacing Up: " + root.getPluginData("amount"));
         break;
     }
     case "down": {
         figma.showUI(__html__, { width: 240, height: 128 });
-        figma.ui.postMessage("Spaceing Down:");
+        figma.ui.postMessage("Spacing Down: " + root.getPluginData("amount"));
         break;
     }
     case "left": {
         figma.showUI(__html__, { width: 240, height: 128 });
-        figma.ui.postMessage("Spacing Left:");
+        figma.ui.postMessage("Spacing Left: " + root.getPluginData("amount"));
         break;
     }
     case "right": {
         figma.showUI(__html__, { width: 240, height: 128 });
-        figma.ui.postMessage("Spaceing Right:");
+        figma.ui.postMessage("Spacing Right: " + root.getPluginData("amount"));
         break;
     }
     case "bup": {
@@ -95,7 +96,6 @@ switch (figma.command) {
         var tempXY = 0;
         var newarr = Array.from(selection).sort((a, b) => absoluteX(b) - absoluteX(a));
         newarr.forEach((element, index) => {
-            console.log(absoluteX(element));
             if (spaceApplied == 1) {
                 var realObj = figma.getNodeById(element.id);
                 realObj.x += tempXY - absoluteX(realObj);
@@ -118,6 +118,7 @@ figma.ui.onmessage = (message) => {
         var space = message.amount;
         var spaceApplied = 0;
         var tempXY = 0;
+        root.setPluginData("amount", String(space));
         switch (figma.command) {
             case "up": {
                 var newarr = Array.from(selection).sort((a, b) => absoluteY(a) - absoluteY(b));
@@ -170,7 +171,6 @@ figma.ui.onmessage = (message) => {
             case "right": {
                 var newarr = Array.from(selection).sort((a, b) => absoluteX(b) - absoluteX(a));
                 newarr.forEach((element, index) => {
-                    console.log(absoluteX(element));
                     if (spaceApplied == 1) {
                         var realObj = figma.getNodeById(element.id);
                         realObj.x += tempXY - absoluteX(realObj);

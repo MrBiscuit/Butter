@@ -7,6 +7,8 @@ function absoluteY(layer) {
 }
 
 let selection = figma.currentPage.selection;
+let root = figma.root;
+
 if (selection.length == 0) {
     figma.closePlugin('No object selected.')
 }
@@ -17,19 +19,19 @@ if (selection.length < 2) {
 switch (figma.command) {
     case "up": {
         figma.showUI(__html__, { width: 240, height: 128 })
-        figma.ui.postMessage("Spacing Up:")
+        figma.ui.postMessage("Spacing Up: "+root.getPluginData("amount"))
         break;
     } case "down": {
         figma.showUI(__html__, { width: 240, height: 128 })
-        figma.ui.postMessage("Spaceing Down:")
+        figma.ui.postMessage("Spacing Down: "+root.getPluginData("amount"))
         break;
     } case "left": {
         figma.showUI(__html__, { width: 240, height: 128 })
-        figma.ui.postMessage("Spacing Left:")
+        figma.ui.postMessage("Spacing Left: "+root.getPluginData("amount"))
         break;
     } case "right": {
         figma.showUI(__html__, { width: 240, height: 128 })
-        figma.ui.postMessage("Spaceing Right:")
+        figma.ui.postMessage("Spacing Right: "+root.getPluginData("amount"))
         break;
     } case "bup": {
         var space = 0;
@@ -104,7 +106,6 @@ switch (figma.command) {
         var newarr = Array.from(selection).sort((a, b) => absoluteX(b) - absoluteX(a));
 
         newarr.forEach((element, index) => {
-            console.log(absoluteX(element));
 
             if (spaceApplied == 1) {
 
@@ -134,8 +135,8 @@ figma.ui.onmessage = (message) => {
 
         var space = message.amount;
         var spaceApplied = 0;
-
         var tempXY = 0;
+        root.setPluginData("amount", String(space))
 
         switch (figma.command) {
 
@@ -209,7 +210,6 @@ figma.ui.onmessage = (message) => {
                 var newarr = Array.from(selection).sort((a, b) => absoluteX(b) - absoluteX(a));
 
                 newarr.forEach((element, index) => {
-                    console.log(absoluteX(element));
 
                     if (spaceApplied == 1) {
 

@@ -504,12 +504,21 @@
 <script>
 
 onmessage = (event) => {
-  document.getElementById("span").textContent=event.data.pluginMessage;
+  textArr = event.data.pluginMessage.split(" ", 3)
+  document.getElementById("span").textContent=textArr[0]+" "+textArr[1];
+  document.getElementById("amount").value= +textArr[2];
+  document.getElementById("amount").select();
 }
 
 var input = document.getElementById("amount");
 input.focus();
 input.select();
+
+input.oninput = function () {
+    if (this.value.length > 3) {
+        this.value = this.value.slice(0,3); 
+    }
+}
 
 input.addEventListener("keydown", function(event) {
 
